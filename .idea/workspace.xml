@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="95e696e2-9683-487d-9a3f-98e6ed33a658" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/hex/js/combat/entities/units/dwarf.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/hex/js/combat/entities/units/dwarf.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/hex/js/screens/play.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/hex/js/screens/play.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www.js" beforeDir="false" afterPath="$PROJECT_DIR$/www.js" afterDir="false" />
-    </list>
+    <list default="true" id="95e696e2-9683-487d-9a3f-98e6ed33a658" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -385,7 +380,7 @@
       <workItem from="1541148196713" duration="7410000" />
       <workItem from="1541165469161" duration="41353000" />
       <workItem from="1541843559098" duration="850000" />
-      <workItem from="1541854484370" duration="1474000" />
+      <workItem from="1541854484370" duration="1748000" />
     </task>
     <task id="LOCAL-00001" summary="Test project">
       <created>1539517949183</created>
@@ -419,7 +414,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="89114000" />
+    <option name="totallyTimeSpent" value="89388000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
