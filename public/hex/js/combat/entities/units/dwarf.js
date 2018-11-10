@@ -48,3 +48,5 @@ game.combat.Dwarf = me.Entity.extend(
     });
 
 game.resources.push({ name: "dwarf", type: "image", src: "data/img/units/dwarf.png"});
+
+me.pool.register("Dwarf", game.combat.Dwarf);
