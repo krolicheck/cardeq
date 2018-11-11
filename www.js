@@ -2,10 +2,11 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-//var logger = require('morgan');
+var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var ajaxRouter  = require('./routes/ajax');
 
 var www = express();
 
@@ -13,7 +14,7 @@ var www = express();
 www.set('views', path.join(__dirname, 'views'));
 www.set('view engine', 'pug');
 
-//www.use(logger('dev'));
+www.use(logger('dev'));
 www.use(express.json());
 www.use(express.urlencoded({ extended: false }));
 www.use(cookieParser());
@@ -21,6 +22,7 @@ www.use(express.static(path.join(__dirname, 'public')));
 
 www.use('/', indexRouter);
 www.use('/users', usersRouter);
+www.use('/ajax',  ajaxRouter);
 
 // catch 404 and forward to error handler
 www.use(function(req, res, next) {

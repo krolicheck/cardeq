@@ -79,48 +79,50 @@
 		}       
 		return true;
 	}
-		
-	module.exports = {
-		
-		findTiles: function(maze, x, y, dist) {        
-			var _maze = maze.slice(0);			
-			for (let i = 0; i < maze.length; i++) { 			
-				let node = null;	 
-				for (let j = 0; j < maze[i].length; j++) { 				
-					if ( Math.abs(i - x) > dist || Math.abs(j - y) > dist ) {
-						_maze[i][j] = 0;
-					}		
-				}							
-			}
-		
-			let res = createEmpty(maze.length);
-			res[y][x] = 1;
-		
-			for (let i = 0; i < maze.length; i++) { 
-				_maze[i] = +bin2decArr(maze[i]);
-				res[i] = +bin2decArr(res[i]);
-			};
-		
-			let resCopy = null;
-			let iter = 0;
-		
-			while(compareArrays(res, resCopy)==false && (iter < _maze.length*_maze.length)) {
-	
-				iter ++;
-				resCopy = res.slice(0);
-						
-				for (let i = 0; i < maze.length - 1; i++) {
-					res[i] = res[i + 1] = res[i] | res[i+1];	
-					res[i] = res[i] & _maze[i];
-					res[i+1] = res[i + 1] & _maze[i+1];
-				}
-				res = openAllLines(res, _maze);				
-			}
-			for (let i = 0; i < maze.length ; i++) {
-				res[i] = dec2binArr(res[i], maze.length);
-			}			
-			return res;				
-		}
-	}
+
+    let findTiles = function(maze, x, y, dist) {
+        let _maze = maze.slice(0);
+        for (let i = 0; i < maze.length; i++) {
+            let node = null;
+            for (let j = 0; j < maze[i].length; j++) {
+                if ( Math.abs(i - x) > dist || Math.abs(j - y) > dist ) {
+                    _maze[i][j] = 0;
+                }
+            }
+        }
+
+        let res = createEmpty(maze.length);
+        res[y][x] = 1;
+
+        for (let i = 0; i < maze.length; i++) {
+            _maze[i] = +bin2decArr(maze[i]);
+            res[i] = +bin2decArr(res[i]);
+        };
+
+        let resCopy = null;
+        let iter = 0;
+
+        while(compareArrays(res, resCopy)==false && (iter < _maze.length*_maze.length)) {
+
+            iter ++;
+            resCopy = res.slice(0);
+
+            for (let i = 0; i < maze.length - 1; i++) {
+                res[i] = res[i + 1] = res[i] | res[i+1];
+                res[i] = res[i] & _maze[i];
+                res[i+1] = res[i + 1] & _maze[i+1];
+            }
+            res = openAllLines(res, _maze);
+        }
+        for (let i = 0; i < maze.length ; i++) {
+            res[i] = dec2binArr(res[i], maze.length);
+        }
+        return res;
+    }
+
+    if (typeof module !== 'undefined' && typeof module.exports !== 'undefined')
+        module.exports = findTiles;
+    else
+        window.findTiles = findTiles;
 })();
 
