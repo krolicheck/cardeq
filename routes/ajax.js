@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
         ,name : "Dwarf"
         ,selected : true
         ,location :  {
-             x : 10
+             x : 4
             ,y : 4
         }
     });

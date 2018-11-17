@@ -6,21 +6,18 @@
 game.combat.Dwarf = me.Entity.extend(
     {
         init:function (options) {
-            alert(window.findTiles)
             options.image = me.loader.getImage("dwarf");
             options.width = 44;
             options.height = 64;
             options.framewidth = 44;
             options.frameheight = 64;
-            var unitLayer = me.game.world.getChildByName("UnitLayer")[0];
+            let unitLayer = me.game.world.getChildByName("UnitLayer")[0];
 
             this.tile = unitLayer.setTile( options.location.x,  options.location.y, 4);
-            console.log(this.tile.getBounds());
             let bodyX = this.tile.pos.x;
             if (!this.isEven(this.tile.pos.y)){
                 bodyX = bodyX + this.tile.width / 2;
             }
-            console.log(this.isEven(this.tile.pos.y) + options.id);
             let bodyY = this.tile.pos.y / 1.4 - this.tile.height / 2;
             this._super(me.Entity, "init", [bodyX, bodyY, options]);
             this.renderable.addAnimation ("idle_selected", [9]);
@@ -32,7 +29,11 @@ game.combat.Dwarf = me.Entity.extend(
             this.body.gravity.y = 0;
             this.name = options.name;
             this.renderable.setCurrentAnimation("idle");
-            this.selected =  options.selected || false;
+            if(options.selected || false){
+                this.select();
+            } else {
+                this.selected = false;
+            }
         },
 
         /*draw : function (renderer) {
@@ -40,6 +41,60 @@ game.combat.Dwarf = me.Entity.extend(
         },*/
         isEven : function (n) {
             return n === parseFloat(n)? !(n%2) : void 0;
+        },
+
+        clearLayer : function(layerName){
+            let layer = me.game.world.getChildByName(layerName)[0];
+            for (let i=0; i<layer.cols; i++) {
+                for (let j=0; j<layer.rows; j++) {
+                    layer.clearTile(i, j);
+                };
+            };
+        }
+        , createMaze : function(layerName){
+            let layer = me.game.world.getChildByName(layerName)[0];
+            let result = new Array();
+            for (let i=0; i<layer.rows; i++) {
+                let arr = new Array();
+                result.push(arr);
+                for (let j=0; j<layer.cols; j++) {
+                    let tile = layer.layerData[j][i];
+                    if (tile) {
+                        arr.push(0);
+                    } else {
+                        arr.push(1);
+                    }
+                };
+            };
+            return result;
+        },
+        createAvailTile : function(layerName, arr){
+            let layer = me.game.world.getChildByName(layerName)[0];
+            let result = new Array();
+            for (let i=0; i<layer.cols; i++) {
+                for (let j=0; j<layer.rows; j++) {
+                    if (arr[j][i] == 1) {
+                        layer.setTile(i,j,2);
+                    }
+                };
+            };
+            return result;
+        },
+
+        select : function(){
+            if (!this.selected){
+                this.selected = true;
+                this.clearLayer("SelectionLayer");
+            }
+            let maze = this.createMaze("ObstacleLayer");
+            let avTile = window.findTiles(maze, this.tile.col, this.tile.row, 4 );
+            this.createAvailTile("SelectionLayer", avTile);
+        },
+
+        unSelect : function(){
+            if (this.selected){
+                this.selected = false;
+            }
         },
 
         update : function ( dt )

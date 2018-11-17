@@ -24,7 +24,7 @@ game.combat.TextEntity = me.Renderable.extend({
             var layer = me.game.world.getChildByName("BatleGround")[0];
             var selLayer = me.game.world.getChildByName("CursorLayer")[0];
             var tile = layer.getTile(event.gameWorldX - layer.getBounds().pos.x, event.gameWorldY - layer.getBounds().pos.y );
-            console.log(me.game.world.getChildByProp("id", "Dwarf1")[0]);
+            //console.log(me.game.world.getChildByProp("id", "Dwarf1")[0]);
             if (tile) {
                 for (var i=0; i<selLayer.cols; i++) {
                     for (var j=0; j<selLayer.rows; j++) {

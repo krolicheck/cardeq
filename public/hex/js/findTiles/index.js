@@ -46,16 +46,16 @@
 			let line1 = (line << 1) & resetFirstBit; 				
 			let line2 = line >> 1;			
 			line = (line | line1);
-			line = (line | line2);	
+			line = (line | line2);
 			line = line & mazeLine;		
 		}			
 		return line;	
 	}
 
-	function createEmpty(size){
+	function createEmpty(width, height){
 		let res = new Array();	
-		for(let i=0; i<size; i++){
-			let arr2 = new Array(size).fill(0);;				
+		for(let i=0; i<width; i++){
+			let arr2 = new Array(height).fill(0);;
 			res.push(arr2);
 		}	
 		return res;	
@@ -80,24 +80,35 @@
 		return true;
 	}
 
+    function isEven(n) {
+        return n === parseFloat(n)? !(n%2) : void 0;
+    }
+
     let findTiles = function(maze, x, y, dist) {
         let _maze = maze.slice(0);
         for (let i = 0; i < maze.length; i++) {
-            let node = null;
+            let curDist =  0;
             for (let j = 0; j < maze[i].length; j++) {
-                if ( Math.abs(i - x) > dist || Math.abs(j - y) > dist ) {
+                // max(|dy|, |dx| + floor(|dy|/2) + penalty);
+                // penalty = ( (even(y1) && odd(y2) && (x1 < x2)) || (even(y2) && odd(y1) && (x2 < x1)) ) ? 1 : 0
+                let penalty = (isEven(i) && !isEven(y) && (j < x)) ||(isEven(y) && !isEven(i) && (x < j)) ? 1 : 0;
+                let curDist = Math.max(Math.abs(i-y), Math.abs(j-x) + Math.floor(Math.abs(i-y)/2) + penalty);
+
+
+                if ( curDist > dist) {
                     _maze[i][j] = 0;
                 }
             }
         }
 
-        let res = createEmpty(maze.length);
+        let res = createEmpty(maze.length, maze[0].length);
         res[y][x] = 1;
 
         for (let i = 0; i < maze.length; i++) {
             _maze[i] = +bin2decArr(maze[i]);
             res[i] = +bin2decArr(res[i]);
         };
+
 
         let resCopy = null;
         let iter = 0;
@@ -115,7 +126,7 @@
             res = openAllLines(res, _maze);
         }
         for (let i = 0; i < maze.length ; i++) {
-            res[i] = dec2binArr(res[i], maze.length);
+            res[i] = dec2binArr(res[i], maze[0].length);
         }
         return res;
     }
