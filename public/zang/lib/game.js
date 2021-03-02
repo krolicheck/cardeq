@@ -1,6 +1,6 @@
 
 game = {};
-
+game.resources = [];
 game.combat = {
 
     state: me.state.LOADING,
