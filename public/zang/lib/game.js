@@ -1,33 +1,39 @@
+let PlayScreen = require('./screens/play.js');
 
-game = {};
-game.resources = [];
-game.combat = {
-
-    state: me.state.LOADING,
-    /**
+let Game = me.Object.extend({
+	
+	
+	init : function(settings){
+		let s = settings || {};
+		this.resources = s.resources || [];  
+		this.state = me.state.LOADING  
+		this.settings = s;
+		
+	},
+	/**
      *
      * Initialize the application
      */
     onload: function() {
 
         // init the video
-        if (!me.video.init(800, 600, {wrapper : "screen", scale : "none"})) {
+        if (!me.video.init(this.settings.width || 800, this.settings.height || 600, {wrapper : "screen", scale : "none"})) {
             alert("Your browser does not support HTML5 canvas.");
             return;
         }
 
         // set all ressources to be loaded
-        me.loader.preload(game.resources, this.loaded.bind(this));
+        me.loader.preload(this.resources, this.loaded.bind(this));
     },
 
 
     /**
      * callback when everything is loaded
      */
-    loaded: function ()    {
-
-        // set the "Play/Ingame" Screen Object
-        var playScreen = new game.PlayScreen();
+    loaded: function () {
+        		
+		let playScreen = new PlayScreen(this.settings);				
+	
         me.state.set(me.state.PLAY, playScreen);
         me.state.set(me.state.LOADING, playScreen);
 
@@ -51,8 +57,7 @@ game.combat = {
         this.state = me.state.PLAY;
         me.state.change(me.state.PLAY);
     }
-};
-
-me.device.onReady(function onReady() {    
-    game.combat.onload();
+	
 });
+
+module.exports = Game;

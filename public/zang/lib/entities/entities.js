@@ -1,8 +1,8 @@
-game.combat.units = [];
+let entities = {};
 /**
  *  a text entity to display mouse coords
  */
-game.combat.TextEntity = me.Renderable.extend({
+entities.TextEntity = me.Renderable.extend({
     init: function (x, y, width, height, callback) {
         this.text = "init";
         this.font_size = 20;
@@ -39,9 +39,12 @@ game.combat.TextEntity = me.Renderable.extend({
     },
 });
 
-game.combat.BackGround = me.ImageLayer.extend({
-    init:function (x, y, imageName) {
-            this._super(me.ImageLayer, "init", [x, y , { image: me.loader.getImage(imageName), framewidth: 640, frameheight: 443}]);
+entities.BackGround = me.ImageLayer.extend({
+    init:function (settings) {
+            this._super(me.ImageLayer, "init", [x, y , { image: me.loader.getImage(settings.imageName), framewidth: settings.framewidth || 800, frameheight: settings.frameheight || 600}]);
             this.repeat = "no-repeat";
     }
 });
+
+
+module.exports = entities;
