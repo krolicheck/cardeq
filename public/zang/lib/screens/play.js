@@ -4,7 +4,7 @@ PlayScreen = me.ScreenObject.extend({
     
 	init : function(settings){
 		this.settings = settings;
-		this.world = settings.world;
+		this.ctx = settings.ctx;
 	},
 	
 	/**
@@ -26,7 +26,7 @@ PlayScreen = me.ScreenObject.extend({
 				comp.text = event.gameWorldX + "," + event.gameWorldY;           
 			}
         });
-		this.world.addChild(comp);
+		this.ctx.game.world.addChild(comp);
 	},
 
     /**

@@ -4,8 +4,7 @@ let settings = {
 	width : 800 ,
 	height : 600,
 	debug : true,
-	melon : me,
-	world : me.game.world
+	ctx : me
 };
 
 let game = new Game(settings);		
