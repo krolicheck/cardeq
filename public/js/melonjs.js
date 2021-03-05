@@ -24941,7 +24941,8 @@ me.Error = me.Object.extend.bind(Error)({
         // constructor
         init: function (levelId, data) {
 
-            /**
+            console.log(JSON.stringify(data));
+			/**
              * name of the tilemap
              * @public
              * @type String

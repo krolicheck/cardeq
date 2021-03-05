@@ -5,6 +5,7 @@ let Game = me.Object.extend({
 	
 	init : function(settings){
 		let s = settings || {};
+		this.me = settings.melon;
 		this.resources = s.resources || [];  
 		this.state = me.state.LOADING  
 		this.settings = s;
@@ -34,28 +35,28 @@ let Game = me.Object.extend({
         		
 		let playScreen = new PlayScreen(this.settings);				
 	
-        me.state.set(me.state.PLAY, playScreen);
-        me.state.set(me.state.LOADING, playScreen);
+        this.me.state.set(me.state.PLAY, playScreen);
+        this.me.state.set(me.state.LOADING, playScreen);
 
         // set the fade transition effect
-        me.state.transition("fade","#000000", 250);
+        this.me.state.transition("fade","#000000", 250);
 
         // register on mouse event
-        me.input.registerPointerEvent("pointermove", me.game.viewport, function (event) {
+        this.me.input.registerPointerEvent("pointermove", me.game.viewport, function (event) {
             me.event.publish("pointermove", [ event ]);
         },false);
 
-        me.input.registerPointerEvent("pointerdown", me.game.viewport, function (event) {
+        this.me.input.registerPointerEvent("pointerdown", me.game.viewport, function (event) {
             me.event.publish("pointerdown", [ event ]);
         },false);
 
         // enable the keyboard
-        me.input.bindKey(me.input.KEY.LEFT,  "left");
+        this.me.input.bindKey(me.input.KEY.LEFT,  "left");
 
-        me.input.bindKey(me.input.KEY.RIGHT, "right");
+        this.me.input.bindKey(me.input.KEY.RIGHT, "right");
         // switch to PLAY state
         this.state = me.state.PLAY;
-        me.state.change(me.state.PLAY);
+        this.me.state.change(me.state.PLAY);
     }
 	
 });
