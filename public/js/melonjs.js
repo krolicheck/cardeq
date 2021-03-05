@@ -24940,8 +24940,7 @@ me.Error = me.Object.extend.bind(Error)({
     me.TMXTileMap = me.Object.extend({
         // constructor
         init: function (levelId, data) {
-
-            console.log(JSON.stringify(data));
+           
 			/**
              * name of the tilemap
              * @public
